@@ -10,6 +10,10 @@ This project would develop a program in python as an interface with blender, a g
 
 As an example case, simulations from this repository will be visualized in our software.
 
-[https://github.com/samco7/optimal-spacecraft-control](example simulations)
+[example simulations](https://github.com/samco7/optimal-spacecraft-control)
+
+Here is an example hand-made animation of what we plan to create programatically.
+
+![video](media/near_collision.mp4)
 
 
