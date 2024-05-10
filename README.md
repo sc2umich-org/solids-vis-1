@@ -14,6 +14,6 @@ As an example case, simulations from this repository will be visualized in our s
 
 Here is an example hand-made animation of what we plan to create programatically.
 
-![video](media/near_collision.mp4)
+[video](https://youtu.be/4oE9WtqQrDE)
 
 
