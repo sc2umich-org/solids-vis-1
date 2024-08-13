@@ -1,4 +1,4 @@
-sam c
+sam
 jacob
 john
 tim
