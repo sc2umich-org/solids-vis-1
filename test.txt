@@ -1,8 +1,4 @@
 sam
 jacob
 john
-<<<<<<< HEAD
-test
-=======
 tim
->>>>>>> 8aae743ac2bdf3943abbb04234acaa4a9f0402d9
