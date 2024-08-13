@@ -16,4 +16,8 @@ Here is an example hand-made animation of what we plan to create programatically
 
 [video](https://youtu.be/4oE9WtqQrDE)
 
+## Usage
+
+This module is best used if blender is compiled as a python module `bpy`, but we also plan to make it work with standard blender installations.
+
 
