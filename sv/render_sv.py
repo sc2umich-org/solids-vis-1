@@ -1,10 +1,19 @@
 import os
+import sys
 from sv.conn import Conn
 
-def render(img_name, format):
+def remove_cube():
+    # select cube
+    cube = Conn.bpy.data.collections[0].objects[0]
+    # delete it
+    # https://blender.stackexchange.com/questions/27234/python-how-to-completely-remove-an-object
+    cube.select_set(True)
+    Conn.bpy.ops.object.delete()
+
+def render(img_name,local_render_path, format):
     if format=="JPEG" or format=="PNG":
-        file_path = os.path.dirname(__file__)
-        out_path = file_path + f"/renders/{img_name}.{format.lower()}"
+        file_path = os.getcwd()
+        out_path = file_path + f"/{local_render_path}/renders/{img_name}.{format.lower()}"
         Conn.bpy.context.scene.render.filepath = out_path
         Conn.bpy.context.scene.render.threads=1
         Conn.bpy.context.scene.render.image_settings.file_format = format

@@ -1,8 +1,7 @@
-
-import os
-
-
+import sys
+sys.path.append('.')
+import sv
 
 
 if __name__=="__main__":
-    def_img_test("JPEG")
+    sv.render_sv.render("test", "JPEG")
