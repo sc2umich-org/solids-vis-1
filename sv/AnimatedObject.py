@@ -13,7 +13,14 @@ class AnimatedObject():
 
         if object in list(self.primitive_objs.keys()):
             # Conn.bpy.ops.mesh.primitive_cube_add(3)
-            Conn.bpy.ops.mesh.primitive_uv_sphere_add(3)
+            Conn.bpy.ops.mesh.primitive_uv_sphere_add(radius=1)
+            try:
+                self.sphere = Conn.bpy.data.objects['Sphere']
+                self.sphere = Conn.bpy.context.object
+                print("sphere")
+            except:
+                print("didnt work")
+
         
 
 

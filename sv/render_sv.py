@@ -4,7 +4,7 @@ from sv.conn import Conn
 
 def remove_cube():
     # select cube
-    cube = Conn.bpy.data.collections[0].objects[0]
+    cube = Conn.bpy.data.objects["Cube"]
     # delete it
     # https://blender.stackexchange.com/questions/27234/python-how-to-completely-remove-an-object
     cube.select_set(True)
