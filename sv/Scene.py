@@ -6,7 +6,8 @@ class Scene():
         self.conn = conn
         # deselect everything
         conn.bpy.ops.object.select_all(action="DESELECT")
-        self.remove_cube()
+        if blank:
+            self.remove_cube()
 
     def remove_cube(self):
         # select cube

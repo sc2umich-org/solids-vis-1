@@ -2,5 +2,7 @@ import sys
 sys.path.append('.')
 import sv
 
-sv.render_sv.remove_cube()
-sv.render_sv.render("remove_cube","tests", "JPEG")
+if __name__=="__main__":
+    bpy_conn = sv.conn.Conn()
+    scene = sv.Scene.Scene(bpy_conn,True)
+    scene.render("default","tests", "JPEG")

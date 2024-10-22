@@ -10,7 +10,7 @@ if __name__=="__main__":
     scene = sv.Scene.Scene(bpy_conn)
     obj = sv.AnimatedObject.AnimatedObject(
         bpy_conn,
-        [0,0,0],
+        [[0,0,0]],
         "uv_sphere",
         "test_sphere",
     )

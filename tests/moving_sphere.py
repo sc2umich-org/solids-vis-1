@@ -17,4 +17,4 @@ if __name__=="__main__":
         "test_sphere",
     )
 
-    scene.render("added sphere","tests", "JPEG")
+    scene.render("moving sphere","tests", "JPEG")
