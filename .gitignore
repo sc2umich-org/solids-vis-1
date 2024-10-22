@@ -1,3 +1,7 @@
 .venv
 .vscode
 .env
+sv/__pycache__
+
+
+tests/renders
