@@ -1,9 +1,11 @@
-import sv.Conn as conn
+import sv.conn as conn
 import os
 
 class Scene():
     def __init__(self,conn: conn.Conn, blank:bool=True) -> None:
         self.conn = conn
+        # deselect everything
+        conn.bpy.ops.object.select_all(action="DESELECT")
         self.remove_cube()
 
     def remove_cube(self):

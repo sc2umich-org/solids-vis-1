@@ -1,27 +1,38 @@
 import numpy as np
-from sv.Conn import Conn
+from sv.conn import Conn
 
 class AnimatedObject():
     maxframe = 0
-    def __init__(self,connection:Conn,position_data:list[float],object_name:str=None) -> None:
+    id = 0
+    primitive_obj_ids = ["cube","uv_sphere"]
+
+    def __init__(self,connection:Conn,position_data:list[float],object_mesh:str=None,name:str=None) -> None:
+
         self.positions = position_data
-        self.object_fp = object
+        # self.object_fp = object
         self.conn = connection
 
-        primitive_objs = {
-            "cube":connection.bpy.ops.mesh.primitive_cube_add,
-            "uv_sphere":connection.bpy.ops.primitive_uv_sphere_add
-        }
+        self.id = AnimatedObject.id
+        AnimatedObject.id+=1
 
-        if object in list(self.primitive_objs.keys()):
+        if not name:
+            self.name =self.id
+        else:
+            self.name = name
+
+
+        if object_mesh in self.primitive_obj_ids:
             # Conn.bpy.ops.mesh.primitive_cube_add(3)
-            state = primitive_objs[object_name]()
-            try:
-                self.sphere = Conn.bpy.data.objects['Sphere']
-                self.sphere.select_set(False)
-                print("sphere")
-            except:
-                print("didnt work")
+            state = self.conn.get_primitive(object_mesh)
+            
+            # object will be selected when created
+            self.instance = self.conn.bpy.context.selected_objects[0]
+            self.instance.name = self.name
+            self.instance.select_set(False)
+        
+        for i,frame_pos in enumerate(position_data):
+            self.instance.location = frame_pos
+            self.instance.keyframe_insert("location",frame=i)
 
         
 
