@@ -7,7 +7,10 @@ class Scene():
         # deselect everything
         conn.bpy.ops.object.select_all(action="DESELECT")
         if blank:
-            self.remove_cube()
+            try:
+                self.remove_cube()
+            except KeyError:
+                pass
 
     def remove_cube(self):
         # select cube
@@ -16,6 +19,7 @@ class Scene():
         # https://blender.stackexchange.com/questions/27234/python-how-to-completely-remove-an-object
         cube.select_set(True)
         self.conn.bpy.ops.object.delete(True)
+
 
     def render(self,img_name,local_render_path, format):
         bpy = self.conn.bpy
