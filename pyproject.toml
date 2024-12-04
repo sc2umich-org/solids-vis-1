@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling","bpy","numpy"]
+build-backend = "hatchling.build"
+
+[project]
+name = "solid-vis"
+version = "0.0.1"
+authors = [
+  { name="Scientific Computing Student Club", email="sc2-officers@umich.edu" },
+]
+description = "A python program that interfaces with blender to produce visualizations related to solid bodies and their motions or deformations."
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/sc2umich-org/solids-vis-1"
+Issues = "https://github.com/sc2umich-org/solids-vis-1/issues"
