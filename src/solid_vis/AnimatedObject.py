@@ -1,5 +1,5 @@
 import numpy as np
-from sv.conn import Conn
+from solid_vis.conn import Conn
 
 class AnimatedObject():
     maxframe = 0

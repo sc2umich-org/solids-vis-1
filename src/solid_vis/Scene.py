@@ -1,4 +1,4 @@
-import sv.conn as conn
+import solid_vis.conn as conn
 import os
 
 class Scene():
