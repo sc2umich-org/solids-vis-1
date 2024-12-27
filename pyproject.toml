@@ -9,7 +9,7 @@ authors = [
 ]
 description = "A python program that interfaces with blender to produce visualizations related to solid bodies and their motions or deformations."
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",

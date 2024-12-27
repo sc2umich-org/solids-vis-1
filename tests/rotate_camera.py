@@ -9,12 +9,12 @@ sys.path.append('.')
 
 if __name__=="__main__":
 
-    motion_data = np.array([[x,0,0] for x in np.arange(-10,10,1)])
-    motion_data_2 = np.array([[0,0,0] for x in np.arange(-10,10,1)])
-    camera_pos = np.array([[0,0,-5] for x in np.arange(-10,10,1)])
-    camera_angle = np.array([[0,0,0] for zr in np.arange(45*np.pi/180,-45*np.pi/180,-90/20*np.pi/180)])
+    motion_data = np.array([[x,0,0] for x in np.arange(-10,10,.1)])
+    motion_data_2 = np.array([[0,0,0] for x in np.arange(-10,10,.1)])
+    camera_pos = np.array([[0,-10,0]for x in np.arange(-10,10,.1)])
+    camera_angle = np.array([[np.pi/2,0,zr] for zr in np.arange(45*np.pi/180,-45*np.pi/180,-90/200*np.pi/180)])
     print(camera_angle)
-    frames = [x for x in range(20)]
+    frames = [x for x in range(200)]
     bpy_conn = Conn()
     scene = Scene(bpy_conn)
     obj = AnimatedObject(
