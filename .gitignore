@@ -5,3 +5,5 @@ sv/__pycache__
 
 
 tests/renders
+
+__pycache__/
