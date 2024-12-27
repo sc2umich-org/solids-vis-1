@@ -1,4 +1,4 @@
-import sv.conn as conn
+import solid_vis.conn as conn
 import os
 
 class Scene():
@@ -11,7 +11,7 @@ class Scene():
                 self.remove_cube()
             except KeyError:
                 pass
-
+    
     def remove_cube(self):
         # select cube
         cube = self.conn.bpy.data.objects["Cube"]
@@ -33,3 +33,11 @@ class Scene():
 
         else:
             print("format must be JPEG or PNG")
+
+    def get_camera(self):
+        bpy = self.conn.bpy
+
+        return bpy.data.objects["Camera"]
+    
+    def animate_camera(self,pos,orientation):
+        
