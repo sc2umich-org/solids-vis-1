@@ -1,7 +1,6 @@
 [build-system]
-requires = ["hatchling","bpy","numpy"]
+requires = ["hatchling"]
 build-backend = "hatchling.build"
-https://stackoverflow.com/questions/8207997/calling-a-fortran-subroutine-from-c
 [project]
 name = "solid-vis"
 version = "0.0.1"
