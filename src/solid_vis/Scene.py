@@ -53,16 +53,20 @@ class Scene():
 
         return bpy.data.objects["Camera"]
     
-    def animate_camera(self,pos,orientation,frames):
+    def animate_camera(self,frames, pos= None,orientation=None,track_object=None):
         bpy = self.conn.bpy
         camera_obj = self.get_camera()
-        for p_i,o_i,f_i in zip(pos,orientation,frames):
-            print(camera_obj.rotation_euler)
-            print(camera_obj.location)
-            camera_obj.location = p_i
-            camera_obj.keyframe_insert("location",frame = f_i)
-            o_i = self.conn.mathutils.Euler(o_i)
-            camera_obj.rotation_euler = o_i
-            camera_obj.keyframe_insert("rotation_euler", frame=f_i)
-        bpy.context.scene.camera = camera_obj
-        bpy.context.scene.camera.data.angle = 90*(3.14/180.0)
+        if isinstance(track_object,AnimatedObject):
+            const = camera_obj.constraints.new("TRACK_TO")
+            const.target = track_object.instance
+
+        elif len(orientation)>0:
+            for o_i,f_i in zip(orientation,frames):
+                o_i = self.conn.mathutils.Euler(o_i)
+                camera_obj.rotation_euler = o_i
+                camera_obj.keyframe_insert("rotation_euler", frame=f_i)
+
+        if len(pos)>0:
+            for (p_i,f_i) in zip(pos,frames):
+                camera_obj.location = p_i
+                camera_obj.keyframe_insert("location",frame = f_i)
