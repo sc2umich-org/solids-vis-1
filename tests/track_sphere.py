@@ -8,8 +8,13 @@ sys.path.append('.')
 
 
 if __name__=="__main__":
-
-    motion_data = np.array([[x,0,0] for x in np.arange(-10,10,1)])
+    
+    motion_data = np.array([[np.cos(x),np.sin(x),x] for x in np.arange(-10,10,.1)])
+    frames = [0,199]
+    positions = [
+        [10,-10,5],
+        [10,20,30],
+    ]
     bpy_conn = Conn()
     scene = Scene(bpy_conn)
     obj = AnimatedObject(
@@ -18,5 +23,5 @@ if __name__=="__main__":
         "uv_sphere",
         "test_sphere",
     )
-
-    scene.render_anim("moving sphere","tests")
+    scene.animate_camera(frames,pos=positions,track_object=obj)
+    scene.render_anim("helical_track_cam","tests")

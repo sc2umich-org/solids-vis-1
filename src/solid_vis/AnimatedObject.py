@@ -34,6 +34,11 @@ class AnimatedObject():
             self.instance.location = frame_pos
             self.instance.keyframe_insert("location",frame=i)
 
+        n_frames = len(position_data)
+        current_frames = self.conn.bpy.context.scene.frame_end
+        max_frames = max(n_frames,current_frames)
+        self.conn.bpy.context.scene.frame_end = max_frames  
+
     def delete_object(self):
 
         self.instance.select_set(True)

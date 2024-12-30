@@ -1,4 +1,5 @@
 import bpy
+import mathutils
 
 class Conn():
     # potentially add option to have multiple blenders at once
@@ -7,6 +8,7 @@ class Conn():
 
     def __init__(self) -> None:
         self.bpy=bpy
+        self.mathutils = mathutils
         self.primitive_objs = {
             "cube":self.bpy.ops.mesh.primitive_cube_add,
             "uv_sphere":self.bpy.ops.mesh.primitive_uv_sphere_add,
