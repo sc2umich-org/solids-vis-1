@@ -6,5 +6,7 @@ sv/__pycache__
 
 tests/renders
 tests/blend
+examples/renders
+examples/blend
 
 __pycache__/

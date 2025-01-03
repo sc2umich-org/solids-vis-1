@@ -3,7 +3,9 @@ from scipy.integrate import solve_ivp
 import numpy as np
 import sys
 sys.path.append('.')
-import sv.Conn as conn
+from solid_vis import conn
+from solid_vis.Scene import Scene
+from solid_vis.AnimatedObject import AnimatedObject
 
 def gravity_acceleration(t, x, m1=1, m2=1):
     """
@@ -84,7 +86,7 @@ def pass_through(goal, init):
     def to_minimize(v3):
         y0 = np.copy(init)
         y0[-3:-1] = v3
-        sol = simulate_mechanics_general(y0, (t0, tf), t_eval=np.linspace(t0, tf, 1000), m = [1, .09, .0001])
+        sol = simulate_mechanics_general(y0, (t0, tf), t_eval=np.linspace(t0, tf, 1000), m = np.array([1, .09, .0001])*100**4)
         index = np.argmin(np.linalg.norm(sol[6:9, :].T - goal, axis=1, ord=2))
         sol = sol[:, index]
         return np.linalg.norm(goal - sol[6:9], ord=2)
@@ -101,13 +103,47 @@ init = np.array([-.09, 0, 0, # Position 1 planet
                  .5, -.25, 0, # Position 3 spaceship
                  0, -.09, 0, # Velocity/Momentum 1
                  0, 1, 0, # Velocity/Momentum 2
-                 2.5, 2, 0]) # Velocity 3 
+                 2.5, 2, 0])*100 # Velocity 3 
 
-init = pass_through(np.array([2, 4, 0]), init) 
+init = pass_through(np.array([2, 4, 0])*100, init) 
 
 # Solve the system
-sol = simulate_mechanics_general(init, (t0, tf), t_eval=np.linspace(t0, tf, 1000), m = [1, .09, .0001])
+sol = simulate_mechanics_general(init, (t0, tf), t_eval=np.linspace(t0, tf, 1000), m = np.array([1, .09, .0001])*100**3)
 
 bpy_conn = conn.Conn()
 
-print(sol)
+frames = list(range(1000))
+scale = 0.1
+pos_1 = np.transpose(sol[0:3,:])
+pos_2 = np.transpose(sol[3:6,:])
+pos_3 = np.transpose(sol[6:9,:])
+vel_3 = np.transpose(sol[15:18,:])
+positions = [pos_3_i-vel_3_i*.005 for pos_3_i,vel_3_i in zip(pos_3,vel_3)]
+
+scene = Scene(bpy_conn)
+
+planet = AnimatedObject(
+        bpy_conn,
+        pos_1,
+        "uv_sphere",
+        "planet",
+        radius = 1/scale
+    )
+moon = AnimatedObject(
+        bpy_conn,
+        pos_2,
+        "uv_sphere",
+        "moon",
+        radius = 0.09/scale
+    )
+ship = AnimatedObject(
+        bpy_conn,
+        pos_3,
+        "uv_sphere",
+        "ship",
+        radius=0.001/scale
+        
+    )
+
+scene.animate_camera(frames,pos=positions,track_object=ship)
+bpy_conn.save_blend("examples/blend/slingshot.blend")
