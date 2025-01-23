@@ -1,5 +1,6 @@
 import bpy
 import mathutils
+import os
 
 class Conn():
     # potentially add option to have multiple blenders at once
@@ -23,3 +24,11 @@ class Conn():
         }
     def get_primitive(self,obj_type,**kwargs):
         return self.primitive_objs[obj_type](**kwargs)
+    
+    def save_blend(self,fp):
+        fp_dir = os.path.dirname(fp)
+        os.makedirs(fp_dir,exist_ok=True)
+        self.bpy.ops.wm.save_as_mainfile(filepath=fp)
+
+    def open_blend(self,fp):
+        self.bpy.ops.wm.open_mainfile(filepath=fp)
