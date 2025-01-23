@@ -7,3 +7,5 @@ sv/__pycache__
 tests/renders
 
 __pycache__/
+
+examples/blend
