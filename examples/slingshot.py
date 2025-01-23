@@ -112,13 +112,13 @@ sol = simulate_mechanics_general(init, (t0, tf), t_eval=np.linspace(t0, tf, 1000
 
 bpy_conn = conn.Conn()
 
-frames = list(range(1000))
+frames = [0]
 scale = 0.1
 pos_1 = np.transpose(sol[0:3,:])
 pos_2 = np.transpose(sol[3:6,:])
 pos_3 = np.transpose(sol[6:9,:])
 vel_3 = np.transpose(sol[15:18,:])
-positions = [pos_3_i-vel_3_i*.005 for pos_3_i,vel_3_i in zip(pos_3,vel_3)]
+positions = [[100,-100,30]]
 
 scene = Scene(bpy_conn)
 
@@ -141,9 +141,9 @@ ship = AnimatedObject(
         pos_3,
         "uv_sphere",
         "ship",
-        radius=0.001/scale
+        radius=0.01/scale
         
     )
 
-scene.animate_camera(frames,pos=positions,track_object=ship)
+scene.animate_camera(frames,pos=positions,track_object=moon)
 bpy_conn.save_blend("examples/blend/slingshot.blend")
