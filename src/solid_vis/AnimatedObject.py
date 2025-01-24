@@ -29,6 +29,11 @@ class AnimatedObject():
             self.instance = self.conn.bpy.context.selected_objects[0]
             self.instance.name = self.name
             self.instance.select_set(False)
+
+        else:
+            obj = self.conn.bpy.data.objects.new(name,object_mesh.bpy_mesh)
+            self.instance = obj
+            self.instance.select_set(False)
         
         for i,frame_pos in enumerate(position_data):
             self.instance.location = frame_pos
