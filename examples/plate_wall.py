@@ -42,7 +42,7 @@ class CollapseWall():
                 "thickness":thickness,
                 "rotation":[90,0,90],
                 "translation":[
-                    thickness+long_length+pn+2*gap,
+                    thickness+long_length+pn+2*gap+thickness,
                     0,
                     0
                 ],
@@ -192,6 +192,9 @@ class CollapseWall():
         ec_obj =  AnimatedObject(bpy_conn,[],mesh,mesh.name)
         # should make a new collection to keep organized with multiple walls
         bpy_conn.bpy.context.collection.objects.link(ec_obj.instance)
+        ec_obj.instance.select_set(True)
+        bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY')
+        ec_obj.instance.select_set(False)
         
         
         # right diag
@@ -214,6 +217,9 @@ class CollapseWall():
         ec_obj =  AnimatedObject(bpy_conn,[],mesh,mesh.name)
         # should make a new collection to keep organized with multiple walls
         bpy_conn.bpy.context.collection.objects.link(ec_obj.instance)
+        ec_obj.instance.select_set(True)
+        bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY')
+        ec_obj.instance.select_set(False)
 
         for p in panels:
             thickness = p["thickness"]/1000
@@ -229,7 +235,9 @@ class CollapseWall():
             ec_obj =  AnimatedObject(bpy_conn,[],mesh,mesh.name)
             # should make a new collection to keep organized with multiple walls
             bpy_conn.bpy.context.collection.objects.link(ec_obj.instance)
+            ec_obj.instance.select_set(True)
             bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY')
+            ec_obj.instance.select_set(False)
 
         scene = Scene(bpy_conn)
         bpy_conn.save_blend("examples/blend/plate_wall.blend")
