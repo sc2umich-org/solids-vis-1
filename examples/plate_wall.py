@@ -8,10 +8,10 @@ import bpy
 pn = 400
 l1 = 300
 l2 = 200
-h = 3000
+h = 2440
 thickness = 13    
 class CollapseWall():
-    def __init__(self,pn,l1,l2,h,thickness):
+    def __init__(self,pn,l1,l2,h,thickness,name):
         a = l1/2
         c = l2
         b = np.sqrt(c**2-a**2)
@@ -170,8 +170,8 @@ class CollapseWall():
 
         ]
         bpy_conn = conn.Conn()
-
-
+        self.collection = bpy.data.collections.new(name)
+        bpy.context.scene.collection.children.link(self.collection)
         # left diag
         translation = [long_length-(gap+gap_p+a)*2+thickness,thickness,0]
         rotation = [0,0,angle]
@@ -191,7 +191,7 @@ class CollapseWall():
         mesh.save_mesh()
         ec_obj =  AnimatedObject(bpy_conn,[],mesh,mesh.name)
         # should make a new collection to keep organized with multiple walls
-        bpy_conn.bpy.context.collection.objects.link(ec_obj.instance)
+        self.collection.objects.link(ec_obj.instance)
         ec_obj.instance.select_set(True)
         bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY')
         ec_obj.instance.select_set(False)
@@ -216,7 +216,7 @@ class CollapseWall():
         mesh.save_mesh()
         ec_obj =  AnimatedObject(bpy_conn,[],mesh,mesh.name)
         # should make a new collection to keep organized with multiple walls
-        bpy_conn.bpy.context.collection.objects.link(ec_obj.instance)
+        self.collection.objects.link(ec_obj.instance)
         ec_obj.instance.select_set(True)
         bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY')
         ec_obj.instance.select_set(False)
@@ -234,55 +234,27 @@ class CollapseWall():
             mesh.save_mesh()
             ec_obj =  AnimatedObject(bpy_conn,[],mesh,mesh.name)
             # should make a new collection to keep organized with multiple walls
-            bpy_conn.bpy.context.collection.objects.link(ec_obj.instance)
+            self.collection.objects.link(ec_obj.instance)
             ec_obj.instance.select_set(True)
             bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY')
             ec_obj.instance.select_set(False)
 
         scene = Scene(bpy_conn)
-        bpy_conn.save_blend("examples/blend/plate_wall.blend")
+        
         
 
-CollapseWall(pn,l1,l2,h,thickness)
+CollapseWall(12.98*25.4,9.66*25.4,5*25.4,h,thickness,"1")
+CollapseWall(20.49*25.4,19.84*25.4,10*25.4,h,thickness,"2")
+CollapseWall(28*25.4,29.895*25.4,15*25.4,h,thickness,"3")
+CollapseWall(41.5*25.4,39.92*25.4,20*25.4,h,thickness,"4")
+bpy_conn = conn.Conn()
+bpy_conn.save_blend("examples/blend/floorplan.blend")
 
 
 
 
-#     acc_left_inn = parts["inn_acc"].assemble(assembly,"li",[-90,angle,180],[nominal_length-a+gap+len_1,height,b+thickness+t_p])
 
-#     draw_l2_hinge(parts["inn_acc"],hinge_params,acc_left_inn,"li",assembly)
 
-#     acc_right_inn = parts["inn_acc"].assemble(assembly,"ri",[-90,angle,180],[nominal_length-a+gap+len_1+gap+gap_p,height,b+thickness+t_p+thickness])
-
-#     draw_l2_hinge(parts["inn_acc"],hinge_params,acc_right_inn,"ri",assembly)
-
-#     acc_right_out = parts["inn_acc"].assemble(assembly,"ro",[-90,angle,0],[nominal_length-a+gap+len_1+gap+gap_p+2*gap,0,b+thickness+t_p+thickness])
-
-#     draw_l2_hinge(parts["inn_acc"],hinge_params,acc_right_out,"ro",assembly)
-
-#     nom_left = parts["pn"].assemble(assembly,"nom_left",[-90,0,0],[0,0,thickness])
-
-#     draw_nom_hinge(parts["pn"],hinge_params,nom_left,"left")
-
-#     nom_right = parts["pn"].assemble(assembly,"nom_right",[-90,180,0],[nominal_length+long_length+gap*2,0,depth-thickness])
-
-#     draw_nom_hinge(parts["pn"],hinge_params,nom_right,"nom_right")
-
-#     flat_acc_left = parts["acc"].assemble(assembly,"acc_left",[-90,0,0],[nominal_length+gap*3+gap_p,0,thickness*2])
-
-#     draw_nom_hinge(parts["acc"],hinge_params,flat_acc_left,"left")
-
-#     flat_acc_right = parts["acc"].assemble(assembly,"acc_right",[-90,180,0],[long_length-gap-gap_p,0,depth-thickness*2])
-
-#     draw_nom_hinge(parts["acc"],hinge_params,flat_acc_right,"right")
-
-#     long_left = parts["pl"].assemble(assembly,"long_left",[-90,0,0],[nominal_length+gap*2,0,thickness])
-
-#     draw_long_hinge(parts["pl"],hinge_params,long_left,"left")
-
-#     long_right = parts["pl"].assemble(assembly,"long_right",[-90,180,0],[long_length,0,depth-thickness])
-
-#     draw_long_hinge(parts["pl"],hinge_params,long_right,"right")
 
 
 
