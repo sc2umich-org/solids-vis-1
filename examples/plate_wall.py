@@ -225,6 +225,8 @@ class CollapseWall():
             thickness = p["thickness"]/1000
             width = p["width"]/1000
             height = p["height"]/1000
+            if width<1e-8:
+                continue
             translation = [t/1000 for t in p["translation"]]
             mesh = objm.FeatureMesh(p["name"])
             var1 = mesh.add_plane(height,width)
@@ -243,10 +245,11 @@ class CollapseWall():
         
         
 
-CollapseWall(12.98*25.4,9.66*25.4,5*25.4,h,thickness,"1")
-CollapseWall(20.49*25.4,19.84*25.4,10*25.4,h,thickness,"2")
-CollapseWall(28*25.4,29.895*25.4,15*25.4,h,thickness,"3")
-CollapseWall(41.5*25.4,39.92*25.4,20*25.4,h,thickness,"4")
+# CollapseWall(12.98*25.4,9.66*25.4,5*25.4,h,thickness,"1")
+# CollapseWall(20.49*25.4,19.84*25.4,10*25.4,h,thickness,"2")
+# CollapseWall(28*25.4,29.895*25.4,15*25.4,h,thickness,"3")
+# CollapseWall(41.5*25.4,39.92*25.4,20*25.4,h,thickness,"4")
+CollapseWall(np.float64(273.4589705432711), 48.475136612021885, np.float64(130.8782017709391) ,2440,6.35,"1")
 bpy_conn = conn.Conn()
 bpy_conn.save_blend("examples/blend/floorplan.blend")
 

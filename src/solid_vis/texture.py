@@ -1,26 +1,38 @@
 import bpy
 class Texture():
-    def __init__(self,name,tree):
+    def __init__(self,name,graph):
         mat = bpy.data.materials.new(name)
         self.mat = mat
         mat.use_nodes = True
         self.nodes = mat.node_tree.nodes
         self.links = mat.node_tree.links
+        self.node_ledger = [0]*len(graph)
         # set use nodes to true 
 
         root = self.nodes.get('Material Output')
         print(root)
-        self.recurse_tree(tree,root)
+        for node in graph:
+            new_node = self.nodes.new(node["node_type"])
+            self.node_ledger[node["id"]]=new_node
+            for k,v in node["args"].items():
+                setattr(new_node,k,v)
 
-    def recurse_tree(self,tree,parent):
-        if tree=="":
-            return
-        for branch in tree:
-            new_node = self.nodes.new(branch["node_type"])
-            print(new_node.outputs[0])
-            self.links.new(parent.inputs[branch["parent_input"]],new_node.outputs[branch["output"]])
-            
-            self.recurse_tree(branch.get("children",""),new_node)
+            # connections from the output of this node to inputs of another node
+            for connection in node["connections"]:
+                # what if node doesn't exist when connection attempt is made
+                if connection["id"]==-1:
+                    other = root
+                else:
+                    other = self.node_ledger[connection["id"]]
+                if isinstance(other,int):
+                    print("nodes are defined in the wrong order, texture is broken")
+                    raise IndexError
+                    
+                self.links.new(
+                    other.inputs[connection["inp"]],
+                    new_node.outputs[connection["out"]]
+                )
+
 
 
 
