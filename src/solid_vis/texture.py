@@ -1,4 +1,25 @@
 import bpy
+def tex_from_blend(file,texture):
+    bpy.ops.wm.open_mainfile(filepath=file)
+    mat = bpy.data.materials[texture]
+    nodes = mat.node_tree.nodes
+    counter = 0
+    graph_nodes = []
+    for node in nodes:
+        if getattr(node,"node_tree",False):
+            for node_j in node.node_tree.nodes:
+                # add location and size properties
+                new_node = {
+                    "id":counter,
+                    "node_type":node_j.bl_idname,
+                    "args":{
+
+                    }
+                }
+                graph_nodes.append(new_node)
+                counter+=1
+    return graph_nodes
+
 class Texture():
     def __init__(self,name,graph):
         mat = bpy.data.materials.new(name)
